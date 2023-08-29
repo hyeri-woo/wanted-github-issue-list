@@ -1,14 +1,18 @@
 import './App.css';
-import Router from './routes/Router';
+import store from './redux/store';
+import router from './routes/Router';
 import GlobalStyle from './styles/GlobalStyle';
-import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { RouterProvider } from 'react-router-dom';
+
+// import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
-    <BrowserRouter>
+    <Provider store={store}>
       <GlobalStyle />
-      <Router />
-    </BrowserRouter>
+      <RouterProvider router={router} />
+    </Provider>
   );
 }
 

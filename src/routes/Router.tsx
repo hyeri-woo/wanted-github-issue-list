@@ -1,12 +1,18 @@
+import Detail from '../pages/Detail';
 import Issue from '../pages/Issue';
 import NotFound from '../pages/NotFound';
-import { Route, Routes } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
-export default function Router() {
-  return (
-    <Routes>
-      <Route path='/' element={<Issue />} />
-      <Route path='/*' element={<NotFound />} />
-    </Routes>
-  );
-}
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Issue />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: '/detail',
+    element: <Detail />,
+  },
+]);
+
+export default router;
