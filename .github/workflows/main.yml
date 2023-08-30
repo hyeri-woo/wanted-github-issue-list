@@ -23,7 +23,7 @@ jobs:
         with:
           publish-dir: './build'
           production-branch: develop
-          github-token: ${{ secrets.REACT_APP_GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
