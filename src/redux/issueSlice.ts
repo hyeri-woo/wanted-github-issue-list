@@ -1,23 +1,33 @@
+import { fetchGetIssue } from '../api/issue';
 import { Issue } from '../types';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type issueState = {
+export interface issueState {
   value: Issue[];
-};
+  loading: string;
+}
 
+// loding = 'idle' | 'pending' | 'succeeded' | 'failed'
 const initialState: issueState = {
   value: [],
+  loading: 'idle',
 };
+
+const fetchIssues = createAsyncThunk('issues/get', async () => {
+  const res = await fetchGetIssue();
+  return res;
+});
 
 const issueSlice = createSlice({
   name: 'issues',
   initialState,
-  reducers: {
-    extend: (state, action: PayloadAction<Issue[]>) => {
+  reducers: {},
+  extraReducers: builder => {
+    builder.addCase(fetchIssues.fulfilled, (state: issueState, action: PayloadAction<Issue[]>) => {
       state.value = [...(state.value || []), ...(action.payload || [])];
-    },
+    });
   },
 });
 
-export const { extend } = issueSlice.actions;
+export { fetchIssues };
 export default issueSlice.reducer;
