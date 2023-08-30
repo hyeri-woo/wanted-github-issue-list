@@ -7,16 +7,4 @@ const instance: AxiosInstance = axios.create({
   },
 });
 
-// instance.interceptors.request.use(
-//   (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
-//     const headers = {
-//       Authorization: `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`,
-//     };
-//     return {...config, headers};
-//   },
-//   (error: AxiosError): Promise<AxiosError> => {
-//     return Promise.reject(error);
-//   },
-// );
-
 export default instance;
