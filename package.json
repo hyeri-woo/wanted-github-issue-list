@@ -57,5 +57,6 @@
     "eslint-config-prettier": "^9.0.0",
     "husky": "^8.0.3",
     "prettier": "^3.0.2"
-  }
+  },
+  "homepage": "https://wanted-github-issue-list.netlify.app/"
 }
