@@ -1,8 +1,12 @@
 import { Issue } from '../types';
 import instance from './index';
 
-const fetchGetIssue = async (): Promise<Issue[]> => {
-  const response = await instance.get('/repos/facebook/react/issues');
+const fetchGetIssue = async (page: number = 1): Promise<Issue[]> => {
+  const response = await instance.get('/repos/facebook/react/issues', {
+    params: {
+      page: page,
+    },
+  });
   return response.data.map((issue: any) => {
     return {
       id: issue.id,

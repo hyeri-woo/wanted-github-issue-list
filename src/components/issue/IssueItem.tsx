@@ -9,7 +9,7 @@ interface Props {
 export default function IssueItem({ issue }: Props) {
   return (
     <StyledItem>
-      <Link to={`/${issue.number}`}>
+      <Link to={`/issue/${issue.number}`}>
         <h2>
           <span className='issue-num'>#{issue.number}</span> {issue.title}
         </h2>
