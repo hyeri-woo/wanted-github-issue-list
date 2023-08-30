@@ -10,6 +10,7 @@ const fetchGetIssue = async (
     params: {
       sort: 'comments',
       page: page,
+      per_page: 10,
     },
   });
   return response.data.map((issue: any) => {

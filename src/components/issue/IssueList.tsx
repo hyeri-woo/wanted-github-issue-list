@@ -1,6 +1,7 @@
 import { fetchIssues } from '../../redux/issueSlice';
 import { AppDispatch, RootState } from '../../redux/store';
 import AdCard from '../common/AdCard';
+import Loading from '../common/Loading';
 import IssueItem from './IssueItem';
 import { useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -59,6 +60,7 @@ export default function IssueList() {
             </>
           );
         })}
+      {issues.loading === 'pending' && <Loading />}
     </StyledIssueList>
   );
 }
@@ -67,7 +69,7 @@ const StyledIssueList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 100px 30px 30px;
+  padding: 100px 30px;
   max-width: 800px;
   margin: auto;
 `;
