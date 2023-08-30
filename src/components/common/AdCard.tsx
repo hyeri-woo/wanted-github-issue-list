@@ -15,7 +15,7 @@ export default function AdCard() {
 }
 
 const StyledCard = styled.article`
-  background: var(--color-white20);
+  background: var(--color-white70);
   border-radius: 30px;
   border: 1px solid var(--color-white70);
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
