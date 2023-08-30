@@ -12,16 +12,28 @@ export default function IssueList() {
 
   const onScrollLoadPage = () => {
     if (
-      window.scrollY + document.documentElement.clientHeight ===
-      document.documentElement.scrollHeight
+      Math.floor(window.scrollY + document.documentElement.clientHeight) ===
+      Math.floor(document.documentElement.scrollHeight)
     ) {
-      dispatch(fetchIssues(issues.count));
+      dispatch(
+        fetchIssues({
+          organization: issues.organization,
+          repository: issues.repository,
+          page: issues.page,
+        }),
+      );
     }
   };
 
   useLayoutEffect(() => {
-    dispatch(fetchIssues(issues.count));
-  }, [dispatch, issues.count]);
+    dispatch(
+      fetchIssues({
+        organization: issues.organization,
+        repository: issues.repository,
+        page: issues.page,
+      }),
+    );
+  }, []);
 
   useEffect(() => {
     window.addEventListener('scroll', onScrollLoadPage);
