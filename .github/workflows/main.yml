@@ -1,0 +1,29 @@
+name: 'deploy'
+
+on: 
+  push:
+    branches: ['main']
+
+jobs: 
+  runs-on: ubuntu-latest
+    steps:  
+      - uses: actions/checkout@v2
+      - name: Create env
+        run: |
+          echo "REACT_APP_GITHUB_TOKEN=$REACT_APP_GITHUB_TOKEN" >> .env
+        env:
+         REACT_APP_GITHUB_TOKEN: ${{ secrets.REACT_APP_GITHUB_TOKEN }} 
+      - name: Install
+        run: rm -f package-lock.json && npm install
+      - name: Build
+        run: npm run build
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: './build'     
+          production-branch: develop
+          github-token: ${{ secrets.REACT_APP_GITHUB_TOKEN }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+    
