@@ -1,13 +1,15 @@
 export type Issue = {
+  id: number;
   number: number;
   title: string;
   author: string;
-  date: Date;
+  date: string;
   comments: number;
   image: string;
   body: string;
 };
 
+// id: id
 // 이슈번호: number
 // 제목: title
 // 작성자: user.login
