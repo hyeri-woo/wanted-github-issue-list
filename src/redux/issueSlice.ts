@@ -3,22 +3,35 @@ import { Issue } from '../types';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface issueState {
+  organization: string;
+  repository: string;
   value: Issue[];
-  count: number;
+  page: number;
   loading: string;
 }
 
 // loding = 'idle' | 'pending' | 'succeeded' | 'failed'
 const initialState: issueState = {
+  organization: 'facebook',
+  repository: 'react',
   value: [],
-  count: 1,
+  page: 1,
   loading: 'idle',
 };
 
-const fetchIssues = createAsyncThunk('issues/get', async (page: number) => {
-  const res = await fetchGetIssue(page);
-  return res;
-});
+export interface issueInfo {
+  organization: string;
+  repository: string;
+  page: number;
+}
+
+const fetchIssues = createAsyncThunk(
+  'issues/get',
+  async ({ organization, repository, page }: issueInfo) => {
+    const res = await fetchGetIssue(organization, repository, page);
+    return res;
+  },
+);
 
 const issueSlice = createSlice({
   name: 'issues',
@@ -30,7 +43,7 @@ const issueSlice = createSlice({
     });
     builder.addCase(fetchIssues.fulfilled, (state: issueState, action: PayloadAction<Issue[]>) => {
       state.value = [...(state.value || []), ...(action.payload || [])];
-      state.count += 1;
+      state.page += 1;
       state.loading = 'succeeded';
     });
     builder.addCase(fetchIssues.rejected, (state: issueState) => {
