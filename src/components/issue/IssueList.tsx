@@ -49,9 +49,9 @@ export default function IssueList() {
           return (
             <>
               <li key={issue.id}>
-                <IssueItem issue={issue} />
+                <IssueItem issue={issue} children={''} />
               </li>
-              {(index + 1) % 5 === 0 && (
+              {(index + 1) % 4 === 0 && (
                 <li>
                   <AdCard />
                 </li>
@@ -63,4 +63,11 @@ export default function IssueList() {
   );
 }
 
-const StyledIssueList = styled.ul``;
+const StyledIssueList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 100px 30px 30px;
+  max-width: 800px;
+  margin: auto;
+`;
