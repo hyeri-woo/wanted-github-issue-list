@@ -1,22 +1,10 @@
 import issueSlice from './issueSlice';
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { persistReducer } from 'redux-persist';
-import sessionStorage from 'redux-persist/es/storage/session';
-
-const reducers = combineReducers({
-  issues: issueSlice,
-});
-
-const persistConfig = {
-  key: 'root',
-  storage: sessionStorage,
-  whitelist: ['issues'],
-};
-
-const persistedReducer = persistReducer(persistConfig, reducers);
+import { configureStore } from '@reduxjs/toolkit';
 
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: {
+    issues: issueSlice,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
