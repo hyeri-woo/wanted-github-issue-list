@@ -5,8 +5,6 @@ import GlobalStyle from './styles/GlobalStyle';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 
-// import { BrowserRouter } from 'react-router-dom';
-
 function App() {
   return (
     <Provider store={store}>

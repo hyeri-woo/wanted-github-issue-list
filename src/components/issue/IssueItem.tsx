@@ -1,18 +1,22 @@
-import React from 'react';
+import { Issue } from '../../types';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-export default function IssueItem() {
+interface Props {
+  issue: Issue;
+}
+
+export default function IssueItem({ issue }: Props) {
   return (
     <StyledItem>
-      <Link to='/'>
+      <Link to={`/${issue.number}`}>
         <h2>
-          <span className='issue-num'>#111</span> issue title
+          <span className='issue-num'>#{issue.number}</span> {issue.title}
         </h2>
         <p>
-          <span className='author'>author</span>
-          <time dateTime=''>time</time>
-          <span className='comment'>comment: 67</span>
+          <span className='author'>{issue.author}</span>
+          <span className='time'>{issue.date}</span>
+          <span className='comment'>comment: {issue.comments}</span>
         </p>
       </Link>
     </StyledItem>
