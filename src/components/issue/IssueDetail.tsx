@@ -17,7 +17,7 @@ export default function IssueDetail() {
     if (isNaN(Number(number))) {
       navigate('/error');
     }
-  }, [number]);
+  }, [number, navigate]);
 
   return (
     <StyledDetail>

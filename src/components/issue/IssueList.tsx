@@ -3,7 +3,7 @@ import { AppDispatch, RootState } from '../../redux/store';
 import AdCard from '../common/AdCard';
 import Loading from '../common/Loading';
 import IssueItem from './IssueItem';
-import { useEffect, useLayoutEffect } from 'react';
+import { useCallback, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { styled } from 'styled-components';
 
@@ -11,22 +11,7 @@ export default function IssueList() {
   const issues = useSelector((state: RootState) => state.issues);
   const dispatch = useDispatch<AppDispatch>();
 
-  const onScrollLoadPage = () => {
-    if (
-      Math.floor(window.scrollY + document.documentElement.clientHeight) ===
-      Math.floor(document.documentElement.scrollHeight)
-    ) {
-      dispatch(
-        fetchIssues({
-          organization: issues.organization,
-          repository: issues.repository,
-          page: issues.page,
-        }),
-      );
-    }
-  };
-
-  useLayoutEffect(() => {
+  const initializeIssueData = useCallback(() => {
     dispatch(
       fetchIssues({
         organization: issues.organization,
@@ -34,14 +19,30 @@ export default function IssueList() {
         page: issues.page,
       }),
     );
-  }, []);
+  }, [dispatch, issues]);
 
-  useEffect(() => {
-    window.addEventListener('scroll', onScrollLoadPage);
-    return () => {
-      window.removeEventListener('scroll', onScrollLoadPage);
-    };
-  }, [issues, dispatch]);
+  const onScrollEvent = useCallback(() => {
+    window.addEventListener('scroll', () => {
+      if (
+        Math.floor(window.scrollY + document.documentElement.clientHeight) ===
+        Math.floor(document.documentElement.scrollHeight)
+      ) {
+        dispatch(
+          fetchIssues({
+            organization: issues.organization,
+            repository: issues.repository,
+            page: issues.page,
+          }),
+        );
+      }
+    });
+  }, [dispatch, issues]);
+
+  useLayoutEffect(() => {
+    initializeIssueData();
+    onScrollEvent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <StyledIssueList>
