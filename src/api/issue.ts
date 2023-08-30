@@ -8,6 +8,7 @@ const fetchGetIssue = async (
 ): Promise<Issue[]> => {
   const response = await instance.get(`/repos/${organization}/${repository}/issues`, {
     params: {
+      sort: 'comments',
       page: page,
     },
   });
