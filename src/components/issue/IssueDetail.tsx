@@ -9,6 +9,7 @@ export default function IssueDetail() {
   const issue = useSelector((state: RootState) =>
     state.issues.value.find(issue => issue.number.toString() === number),
   );
+
   return (
     <>
       <img src={issue?.image} alt='' />
