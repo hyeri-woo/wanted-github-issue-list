@@ -1,11 +1,11 @@
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 
 const instance: AxiosInstance = axios.create({
   baseURL: 'https://api.github.com',
 });
 
 instance.interceptors.request.use(
-  (config: AxiosRequestConfig): AxiosRequestConfig => {
+  (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
     config.headers = {
       Authorization: `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`,
     };
