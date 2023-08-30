@@ -16,3 +16,5 @@ const fetchGetIssue = async (): Promise<Issue[]> => {
     };
   });
 };
+
+export { fetchGetIssue };
