@@ -2,9 +2,9 @@ import axios, { AxiosInstance } from 'axios';
 
 const instance: AxiosInstance = axios.create({
   baseURL: 'https://api.github.com',
-  headers: {
-    Authorization: `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`,
-  },
+  // headers: {
+  //   Authorization: `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`,
+  // },
 });
 
 // instance.interceptors.request.use(
