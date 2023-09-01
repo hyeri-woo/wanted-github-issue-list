@@ -1,12 +1,10 @@
+import { RootState } from '../../redux/store';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-interface Props {
-  organization: string;
-  repository: string;
-}
-
-export default function Header({ organization, repository }: Props) {
+export default function Header() {
+  const { organization, repository } = useSelector((state: RootState) => state.option);
   return (
     <StyledHeader>
       <Link to='/'>
