@@ -1,27 +1,24 @@
-import { fetchGetIssue } from '../api/issue';
-import { Issue } from '../types';
+import { fetchGetIssue } from '../../api/issue';
+import { Issue } from '../../types';
+import { IssueOptions } from './optionSlice';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface issueState {
-  organization: string;
-  repository: string;
   value: Issue[];
   page: number;
-  loading: string;
+  loading: boolean;
+  error: boolean;
 }
 
 // loding = 'idle' | 'pending' | 'succeeded' | 'failed'
 const initialState: issueState = {
-  organization: 'facebook',
-  repository: 'react',
   value: [],
   page: 1,
-  loading: 'idle',
+  loading: true,
+  error: false,
 };
 
-export interface issueInfo {
-  organization: string;
-  repository: string;
+interface issueInfo extends IssueOptions {
   page: number;
 }
 
@@ -39,15 +36,18 @@ const issueSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(fetchIssues.pending, (state: issueState) => {
-      state.loading = 'pending';
+      state.loading = true;
+      state.error = false;
     });
     builder.addCase(fetchIssues.fulfilled, (state: issueState, action: PayloadAction<Issue[]>) => {
       state.value = [...(state.value || []), ...(action.payload || [])];
       state.page += 1;
-      state.loading = 'succeeded';
+      state.loading = false;
+      state.error = false;
     });
     builder.addCase(fetchIssues.rejected, (state: issueState) => {
-      state.loading = 'failed';
+      state.loading = false;
+      state.error = true;
     });
   },
 });

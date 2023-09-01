@@ -1,9 +1,13 @@
-import issueSlice from './issueSlice';
+import detailSlice from './slices/detailSlice';
+import issueSlice from './slices/issueSlice';
+import optionSlice from './slices/optionSlice';
 import { configureStore } from '@reduxjs/toolkit';
 
 const store = configureStore({
   reducer: {
     issues: issueSlice,
+    detail: detailSlice,
+    option: optionSlice,
   },
 });
 

@@ -2,8 +2,8 @@ import { Issue } from '../types';
 import instance from './index';
 
 const fetchGetIssue = async (
-  organization: string = '',
-  repository: string = '',
+  organization: string,
+  repository: string,
   page: number = 1,
 ): Promise<Issue[]> => {
   const response = await instance.get(`/repos/${organization}/${repository}/issues`, {
@@ -27,4 +27,23 @@ const fetchGetIssue = async (
   });
 };
 
-export { fetchGetIssue };
+const fetchGetIssueDetail = async (
+  organization: string,
+  repository: string,
+  number: string,
+): Promise<Issue> => {
+  const response = (await instance.get(`/repos/${organization}/${repository}/issues/${number}`))
+    .data;
+  return {
+    id: response.id,
+    number: response.number,
+    author: response.user.login,
+    date: response.created_at,
+    title: response.title,
+    comments: response.comments,
+    image: response.user.avatar_url,
+    body: response.body,
+  };
+};
+
+export { fetchGetIssue, fetchGetIssueDetail };

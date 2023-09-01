@@ -17,7 +17,8 @@ export default function IssueItem({ issue, children }: Props) {
         </h2>
         <p className='header-info'>
           <span className='author'>
-            <img src={issue?.image} alt='' />
+            {children !== '' && <img src={issue.image} alt='' />}
+            {children === '' && '작성자: '}
             {issue.author}
           </span>
           <span className='time'>
@@ -36,20 +37,13 @@ interface StyledItemDetail {
 }
 
 const StyledItem = styled.div<StyledItemDetail>`
-  padding: 30px;
+  padding: 20px;
   background: var(--color-white20);
   border-radius: 30px;
   border: 1px solid var(--color-white70);
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
-  min-height: 150px;
   &:hover {
     background: ${props => props.isDetail && 'var(--color-white30)'};
-  }
-  img {
-    width: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    border: 1px solid white;
   }
   h2 {
     white-space: nowrap;
@@ -61,8 +55,9 @@ const StyledItem = styled.div<StyledItemDetail>`
       padding: 5px;
       border-radius: 20px;
       background: white;
-      font-size: 20px;
+      font-size: 18px;
       color: var(--color-green);
+      margin-right: 15px;
     }
   }
   p.header-info {
@@ -71,10 +66,16 @@ const StyledItem = styled.div<StyledItemDetail>`
     gap: 10px;
     justify-content: space-between;
     align-items: center;
+    img {
+      width: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      border: 1px solid white;
+    }
   }
   p.body-content {
     border-top: 1px solid white;
     padding: 30px;
-    line-height: 32px;
+    line-height: 30px;
   }
 `;

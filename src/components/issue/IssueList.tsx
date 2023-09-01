@@ -1,4 +1,4 @@
-import { fetchIssues } from '../../redux/issueSlice';
+import { fetchIssues } from '../../redux/slices/issueSlice';
 import { AppDispatch, RootState } from '../../redux/store';
 import AdCard from '../common/AdCard';
 import Loading from '../common/Loading';
@@ -8,18 +8,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { styled } from 'styled-components';
 
 export default function IssueList() {
+  const { organization, repository } = useSelector((state: RootState) => state.option);
   const issues = useSelector((state: RootState) => state.issues);
   const dispatch = useDispatch<AppDispatch>();
 
   const initializeIssueData = useCallback(() => {
     dispatch(
       fetchIssues({
-        organization: issues.organization,
-        repository: issues.repository,
+        organization: organization,
+        repository: repository,
         page: issues.page,
       }),
     );
-  }, [dispatch, issues]);
+  }, [dispatch, issues.page, organization, repository]);
 
   const onScrollEvent = useCallback(() => {
     window.addEventListener('scroll', () => {
@@ -29,14 +30,14 @@ export default function IssueList() {
       ) {
         dispatch(
           fetchIssues({
-            organization: issues.organization,
-            repository: issues.repository,
+            organization: organization,
+            repository: repository,
             page: issues.page,
           }),
         );
       }
     });
-  }, [dispatch, issues]);
+  }, [dispatch, issues.page, organization, repository]);
 
   useLayoutEffect(() => {
     initializeIssueData();
@@ -61,7 +62,7 @@ export default function IssueList() {
             </>
           );
         })}
-      {issues.loading === 'pending' && <Loading />}
+      {issues.loading && <Loading />}
     </StyledIssueList>
   );
 }
