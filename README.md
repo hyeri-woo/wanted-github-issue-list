@@ -1,6 +1,7 @@
 # WANTED 프리온보딩 프론트엔드 2주차 과제
-- WANTED 프리온보딩 프론트엔드 2주차 개인 과제입니다. 
-- Github REST API를 사용하여 React Issue 페이지를 마크다운으로 출력하는 프로젝트입니다. 
+
+- WANTED 프리온보딩 프론트엔드 2주차 개인 과제입니다.
+- Github REST API를 사용하여 React Issue 페이지를 마크다운으로 출력하는 프로젝트입니다.
 
 ## 1. 배포 링크
 
@@ -105,7 +106,7 @@ params: {
 
 #### 광고 이미지 출력
 
-- IssueList에서 map할때 index%4===0일 경우만 AdCard mount 하기
+- IssueList에서 map할때 (index+1)%4===0일 경우만 AdCard mount 하기
 
 #### 무한 스크롤
 
@@ -117,6 +118,8 @@ params: {
 > - 이슈의 상세 내용 표시
 > - ‘이슈번호, 이슈제목, 작성자, 작성일, 코멘트 수, 작성자 프로필 이미지, 본문' 표시
 
+- axios로 fetchGetIssueDetail 함수 정의 (parameter로 organization, repository, page 받음)
+- redux에서 asyncThunk 사용해서 state.value 안에 데이터 저장
 - IssueDetail 안에서 IssueItem mount하고 IssueItem에서 children 받아서 있을 시에만 화면에 뿌리기
 
 ### 3. 공통 헤더
